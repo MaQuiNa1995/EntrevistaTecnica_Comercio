@@ -1,4 +1,4 @@
-package maquina1995.prueba.tecnica.constant;
+package inditex.christian.constant;
 
 import lombok.experimental.UtilityClass;
 

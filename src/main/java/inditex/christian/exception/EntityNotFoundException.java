@@ -1,4 +1,4 @@
-package maquina1995.prueba.tecnica.exception;
+package inditex.christian.exception;
 
 public class EntityNotFoundException extends Exception {
 

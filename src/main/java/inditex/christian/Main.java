@@ -1,4 +1,4 @@
-package maquina1995.prueba.tecnica;
+package inditex.christian;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

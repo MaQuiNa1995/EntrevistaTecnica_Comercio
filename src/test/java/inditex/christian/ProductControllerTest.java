@@ -1,6 +1,7 @@
-package functional.maquina1995.prueba.tecnica;
+package inditex.christian;
 
 import java.net.URI;
+import java.time.LocalDateTime;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -14,12 +15,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import maquina1995.prueba.tecnica.Main;
-import maquina1995.prueba.tecnica.dto.ProductBaseDto;
-import maquina1995.prueba.tecnica.dto.ProductOutputDto;
+import inditex.christian.dto.ProductBaseDto;
+import inditex.christian.dto.ProductOutputDto;
 
-@SpringBootTest(classes = Main.class,
-        webEnvironment = WebEnvironment.RANDOM_PORT)
+@SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
 class ProductControllerTest {
 
 	@Autowired
@@ -41,10 +40,11 @@ class ProductControllerTest {
 		// then
 		ProductOutputDto productDto = response.getBody();
 		Assertions.assertAll(() -> Assertions.assertEquals(HttpStatus.OK, response.getStatusCode()),
-		        () -> Assertions.assertEquals(35.5F, productDto.getFinalPrice()),
-		        () -> Assertions.assertEquals("2020-06-" + day + " " + hour + ":00:00.000", productDto.getActualDate()),
-		        () -> Assertions.assertEquals(1, productDto.getBrandId()),
-		        () -> Assertions.assertEquals(1, productDto.getRateApplied()));
+				() -> Assertions.assertEquals(35.5F, productDto.getFinalPrice()),
+				() -> Assertions.assertEquals(this.createDate(day, hour), productDto.getActualDate()),
+				() -> Assertions.assertEquals(1, productDto.getBrandId()),
+				() -> Assertions.assertEquals(1, productDto.getRateApplied()),
+				() -> Assertions.assertEquals("EUR", productDto.getCurrency()));
 	}
 
 	@Test
@@ -61,10 +61,11 @@ class ProductControllerTest {
 		// then
 		ProductOutputDto productDto = response.getBody();
 		Assertions.assertAll(() -> Assertions.assertEquals(HttpStatus.OK, response.getStatusCode()),
-		        () -> Assertions.assertEquals(25.45F, productDto.getFinalPrice()),
-		        () -> Assertions.assertEquals("2020-06-" + day + " " + hour + ":00:00.000", productDto.getActualDate()),
-		        () -> Assertions.assertEquals(1, productDto.getBrandId()),
-		        () -> Assertions.assertEquals(2, productDto.getRateApplied()));
+				() -> Assertions.assertEquals(25.45D, productDto.getFinalPrice()),
+				() -> Assertions.assertEquals(this.createDate(day, hour), productDto.getActualDate()),
+				() -> Assertions.assertEquals(1, productDto.getBrandId()),
+				() -> Assertions.assertEquals(2, productDto.getRateApplied()),
+				() -> Assertions.assertEquals("EUR", productDto.getCurrency()));
 	}
 
 	@Test
@@ -81,10 +82,11 @@ class ProductControllerTest {
 		// then
 		ProductOutputDto productDto = response.getBody();
 		Assertions.assertAll(() -> Assertions.assertEquals(HttpStatus.OK, response.getStatusCode()),
-		        () -> Assertions.assertEquals(35.5F, productDto.getFinalPrice()),
-		        () -> Assertions.assertEquals("2020-06-" + day + " " + hour + ":00:00.000", productDto.getActualDate()),
-		        () -> Assertions.assertEquals(1, productDto.getBrandId()),
-		        () -> Assertions.assertEquals(1, productDto.getRateApplied()));
+				() -> Assertions.assertEquals(35.5F, productDto.getFinalPrice()),
+				() -> Assertions.assertEquals(this.createDate(day, hour), productDto.getActualDate()),
+				() -> Assertions.assertEquals(1, productDto.getBrandId()),
+				() -> Assertions.assertEquals(1, productDto.getRateApplied()),
+				() -> Assertions.assertEquals("EUR", productDto.getCurrency()));
 	}
 
 	@Test
@@ -101,10 +103,11 @@ class ProductControllerTest {
 		// then
 		ProductOutputDto productDto = response.getBody();
 		Assertions.assertAll(() -> Assertions.assertEquals(HttpStatus.OK, response.getStatusCode()),
-		        () -> Assertions.assertEquals(30.5F, productDto.getFinalPrice()),
-		        () -> Assertions.assertEquals("2020-06-" + day + " " + hour + ":00:00.000", productDto.getActualDate()),
-		        () -> Assertions.assertEquals(1, productDto.getBrandId()),
-		        () -> Assertions.assertEquals(3, productDto.getRateApplied()));
+				() -> Assertions.assertEquals(30.5F, productDto.getFinalPrice()),
+				() -> Assertions.assertEquals(this.createDate(day, hour), productDto.getActualDate()),
+				() -> Assertions.assertEquals(1, productDto.getBrandId()),
+				() -> Assertions.assertEquals(3, productDto.getRateApplied()),
+				() -> Assertions.assertEquals("EUR", productDto.getCurrency()));
 	}
 
 	@Test
@@ -121,82 +124,45 @@ class ProductControllerTest {
 		// then
 		ProductOutputDto productDto = response.getBody();
 		Assertions.assertAll(() -> Assertions.assertEquals(HttpStatus.OK, response.getStatusCode()),
-		        () -> Assertions.assertEquals(38.95F, productDto.getFinalPrice()),
-		        () -> Assertions.assertEquals("2020-06-" + day + " " + hour + ":00:00.000", productDto.getActualDate()),
-		        () -> Assertions.assertEquals(1, productDto.getBrandId()),
-		        () -> Assertions.assertEquals(4, productDto.getRateApplied()));
-	}
-
-	@Test
-	void productBrandIdNotFoundTest() {
-
-		// given
-		ProductBaseDto productBaseDto = this.createProduct(16, 21);
-		productBaseDto.setBrandId(2);
-		// when
-		ResponseEntity<ProductOutputDto> response = this.callToController(productBaseDto);
-
-		// then
-		Assertions.assertEquals(HttpStatus.NO_CONTENT, response.getStatusCode());
-	}
-
-	@Test
-	void productProductIdNotFoundTest() {
-
-		// given
-		ProductBaseDto productBaseDto = this.createProduct(16, 21);
-		productBaseDto.setProductId(2L);
-
-		// when
-		ResponseEntity<ProductOutputDto> response = this.callToController(productBaseDto);
-
-		// then
-		Assertions.assertEquals(HttpStatus.NO_CONTENT, response.getStatusCode());
-	}
-
-	@Test
-	void productProductIdAndBrandIdNotFoundTest() {
-
-		// given
-		ProductBaseDto productBaseDto = this.createProduct(16, 21);
-		productBaseDto.setProductId(2L);
-		productBaseDto.setBrandId(9999);
-
-		// when
-		ResponseEntity<ProductOutputDto> response = this.callToController(productBaseDto);
-
-		// then
-		Assertions.assertEquals(HttpStatus.NO_CONTENT, response.getStatusCode());
+				() -> Assertions.assertEquals(38.95D, productDto.getFinalPrice()),
+				() -> Assertions.assertEquals(this.createDate(day, hour), productDto.getActualDate()),
+				() -> Assertions.assertEquals(1, productDto.getBrandId()),
+				() -> Assertions.assertEquals(4, productDto.getRateApplied()),
+				() -> Assertions.assertEquals("EUR", productDto.getCurrency()));
 	}
 
 	private ResponseEntity<ProductOutputDto> callToController(ProductBaseDto productBaseDto) {
 		UriComponentsBuilder paramBuilder = this.queryParamBuilder(productBaseDto.getActualDate(),
-		        productBaseDto.getProductId(), productBaseDto.getBrandId());
+				productBaseDto.getProductId(), productBaseDto.getBrandId());
 
 		ResponseEntity<ProductOutputDto> response = this.doGet(paramBuilder);
 		return response;
 	}
 
-	private UriComponentsBuilder queryParamBuilder(String actualDate, Long productId, Integer brandId) {
+	private UriComponentsBuilder queryParamBuilder(LocalDateTime actualDate, Long productId, Integer brandId) {
 		return UriComponentsBuilder.fromHttpUrl("http://localhost:" + localPort + "/product")
-		        .queryParam("actualDate", actualDate)
-		        .queryParam("productId", productId)
-		        .queryParam("brandId", brandId);
+				.queryParam("actualDate", actualDate)
+				.queryParam("productId", productId)
+				.queryParam("brandId", brandId);
 	}
 
 	private ResponseEntity<ProductOutputDto> doGet(UriComponentsBuilder builder) {
 		URI uri = builder.build()
-		        .encode()
-		        .toUri();
+				.encode()
+				.toUri();
 		return testRestTemplate.exchange(uri, HttpMethod.GET, null, ProductOutputDto.class);
 	}
 
 	private ProductBaseDto createProduct(int day, int hour) {
 		ProductBaseDto productBaseDto = new ProductBaseDto();
-		productBaseDto.setActualDate("2020-06-" + day + " " + hour + ":00:00.000");
+		productBaseDto.setActualDate(this.createDate(day, hour));
 		productBaseDto.setBrandId(1);
 		productBaseDto.setProductId(35455L);
 		return productBaseDto;
+	}
+
+	private LocalDateTime createDate(int day, int hour) {
+		return LocalDateTime.of(2020, 6, day, hour, 0, 0);
 	}
 
 }

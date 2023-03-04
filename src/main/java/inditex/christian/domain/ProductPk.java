@@ -1,4 +1,4 @@
-package maquina1995.prueba.tecnica.domain;
+package inditex.christian.domain;
 
 import java.io.Serializable;
 

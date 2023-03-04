@@ -1,4 +1,4 @@
-package maquina1995.prueba.tecnica.configuration;
+package inditex.christian.configuration;
 
 import java.util.Locale;
 

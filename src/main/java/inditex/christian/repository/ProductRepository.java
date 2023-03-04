@@ -1,4 +1,4 @@
-package maquina1995.prueba.tecnica.repository;
+package inditex.christian.repository;
 
 import java.sql.Timestamp;
 import java.util.stream.Stream;
@@ -6,8 +6,8 @@ import java.util.stream.Stream;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
-import maquina1995.prueba.tecnica.domain.Product;
-import maquina1995.prueba.tecnica.domain.ProductPk;
+import inditex.christian.domain.Product;
+import inditex.christian.domain.ProductPk;
 
 public interface ProductRepository extends JpaRepository<Product, ProductPk> {
 
